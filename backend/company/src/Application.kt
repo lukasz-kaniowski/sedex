@@ -1,6 +1,7 @@
 package com.sedex.connect
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.sedex.connect.company.companies
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -22,6 +23,10 @@ fun Application.module(testing: Boolean = false) {
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+        }
+
+        route("/interview/v0") {
+            companies()
         }
     }
 }
