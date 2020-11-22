@@ -7,7 +7,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
-fun Route.companies() {
+fun Route.companies(companyRepository: CompanyRepository) {
     route("/company") {
         post("/") {
             val body = try {
@@ -16,7 +16,7 @@ fun Route.companies() {
                 call.respond(HttpStatusCode.BadRequest)
                 return@post
             }
-            call.respond(HttpStatusCode.Created, body)
+            call.respond(HttpStatusCode.Created, companyRepository.create(body.toCompany()))
         }
     }
 }

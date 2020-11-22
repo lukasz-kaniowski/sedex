@@ -1,6 +1,7 @@
 package com.sedex.connect
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.sedex.connect.company.InMemoryCompanyRepository
 import com.sedex.connect.company.companies
 import io.ktor.application.*
 import io.ktor.features.*
@@ -26,7 +27,7 @@ fun Application.module(testing: Boolean = false) {
         }
 
         route("/interview/v0") {
-            companies()
+            companies(InMemoryCompanyRepository)
         }
     }
 }

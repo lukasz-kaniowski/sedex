@@ -9,4 +9,18 @@ data class CompanyRequest(
         val incorporatedDate: Date?,
         val emailAddress: String?,
         val phoneNumber: String?
+) {
+    fun toCompany(): Company {
+        return Company(companyName, companyType, natureofBusiness, incorporatedDate, emailAddress, phoneNumber)
+    }
+}
+
+data class Company(
+        val companyName: String,
+        val companyType: String?,
+        val natureofBusiness: String?,
+        val incorporatedDate: Date?,
+        val emailAddress: String?,
+        val phoneNumber: String?,
+        var id: UUID? = null
 )
