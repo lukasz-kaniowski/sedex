@@ -11,7 +11,7 @@ object SampleModels {
                 "sampleCompanyType",
                 "sampleNatureofBusiness",
                 Date(),
-                "sampleEmailAddress",
+                "john@company.com",
                 "samplePhoneNumber"
         )
     }

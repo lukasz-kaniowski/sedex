@@ -1,6 +1,7 @@
 package com.sedex.connect
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.sedex.connect.com.sedex.connect.company.CompanyRequestValidatorImpl
 import com.sedex.connect.company.InMemoryCompanyRepository
 import com.sedex.connect.company.companies
 import io.ktor.application.*
@@ -21,13 +22,14 @@ fun Application.module(testing: Boolean = false) {
         }
     }
 
+
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 
         route("/interview/v0") {
-            companies(InMemoryCompanyRepository)
+            companies(InMemoryCompanyRepository, CompanyRequestValidatorImpl())
         }
     }
 }

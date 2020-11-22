@@ -3,6 +3,7 @@ package company
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.sedex.connect.company.Company
+import com.sedex.connect.company.CompanyRequest
 import com.sedex.connect.module
 import com.sedex.connect.utiils.RestHelpers.executePOST
 import com.sedex.connect.utiils.SampleModels.aSampleCompanyRequest
@@ -41,5 +42,14 @@ internal class CompanyRoutesKtTest {
         }
     }
 
+    @Test
+    internal fun `POST invalid data`() {
+        withTestApplication({ module(testing = true) }) {
+            val requestBody = mapper.writeValueAsString(CompanyRequest("testCompany", emailAddress = "incorrect email"))
+            executePOST("/interview/v0/company", requestBody).response.let { response ->
+                assertThat(HttpStatusCode.BadRequest, equalTo(response.status()))
+            }
+        }
+    }
 }
 
