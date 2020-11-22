@@ -2,6 +2,7 @@ package company
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.sedex.connect.module
+import com.sedex.connect.utiils.RestHelpers.executePOST
 import com.sedex.connect.utiils.SampleModels.aSampleCompanyRequest
 import io.ktor.http.*
 import io.ktor.server.testing.*
@@ -12,26 +13,19 @@ internal class CompanyRoutesKtTest {
     val mapper = jacksonObjectMapper()
 
     @Test
-    internal fun `POST correct company`() {
+    internal fun `POST correct company data`() {
         val expected = aSampleCompanyRequest()
         withTestApplication({ module(testing = true) }) {
-            handleRequest(HttpMethod.Post, "/interview/v0/company") {
-                addHeader(HttpHeaders.ContentType, "application/json")
-                setBody(mapper.writeValueAsString(expected))
-            }.response.let { response ->
+            executePOST("/interview/v0/company", mapper.writeValueAsString(expected)).response.let { response ->
                 assertEquals(HttpStatusCode.Created, response.status())
             }
         }
     }
 
     @Test
-    internal fun `POST incorrect company`() {
-        val expected = aSampleCompanyRequest()
+    internal fun `POST malformed data`() {
         withTestApplication({ module(testing = true) }) {
-            handleRequest(HttpMethod.Post, "/interview/v0/company") {
-                addHeader(HttpHeaders.ContentType, "application/json")
-                setBody("""{"malformed": "data"}""")
-            }.response.let { response ->
+            executePOST("/interview/v0/company", """{"malformed": "data"}""").response.let { response ->
                 assertEquals(HttpStatusCode.BadRequest, response.status())
             }
         }
