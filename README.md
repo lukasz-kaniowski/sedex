@@ -1,9 +1,17 @@
-# Sedex Connect - Fullstack Tech Test
+# Note to reviewers
+
+I've decided to do backend implementation. At current stage it doesn't support `address` section. 
+It also requires improvements in data validation.  
+
+At the end I've put some quick and dirty react form using formik. It works but lacks tests.  
+
+## Sedex Connect - Fullstack Tech Test
 
 This is an example technical test for a full stack developer. 💻
 
 It aims to give the interviewee the opportunity to show their knowledge by implementing the `POST /company` 
-method of the [open api spec](./companies-openapi3.yaml) in either the frontend OR the backend.  
+method of the [open api spec](./companies-openapi3.yaml) in either the frontend OR the backend.
+  
 
 ### Frontend
 If you choose the to implement frontend please do so in React, feel free to use whatever libs to assist your 
